@@ -14,8 +14,6 @@ public class GUIController : MonoBehaviour
     private TextMeshProUGUI scoreText;
     [SerializeField]
     private TextMeshProUGUI livesText;
-    [SerializeField]
-    private TextMeshProUGUI speedText;
 
     private void Awake()
     {
@@ -31,10 +29,5 @@ public class GUIController : MonoBehaviour
     public void SetLivesText(int lives)
     {
         livesText.text = "Lives: " + lives;
-    }
-
-    public void SetSpeedText(float speed)
-    {
-        speedText.text = "Speed: " + speed;
     }
 }

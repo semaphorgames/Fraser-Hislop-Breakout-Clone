@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Ball : MonoBehaviour
+public class Ball : NetworkBehaviour
 {
     // Caching
-    private Transform _transform;
-    private Rigidbody2D _rigidbody;
-    [SerializeField]
-    private Paddle paddle;
+    public Transform _transform;
+    public Rigidbody2D _rigidbody;
+    public Paddle paddle;
     private GUIController guiController;
 
     // When not in play, follow the paddle
     private bool inPlay = false;
     public bool InPlay { get { return inPlay; } set { inPlay = value; } }
 
-    private float startY;
+    public float startY;
 
     // Stats
     [SerializeField] [Range(1f, 100f)]
@@ -29,20 +29,18 @@ public class Ball : MonoBehaviour
 
     private void Awake()
     {
-        _transform = transform;
-        _rigidbody = GetComponent<Rigidbody2D>();
         launchSpeedCurrent = launchSpeedStart;
-        startY = _transform.position.y;
     }
 
     private void Start()
     {
         guiController = GUIController.Instance;
     }
-
-    private void Update()
+    public override void OnStartServer()
     {
-        guiController.SetSpeedText(_rigidbody.velocity.magnitude);
+        base.OnStartServer();
+
+        _rigidbody.simulated = true; // only simulate ball phys on server
     }
 
     private void FixedUpdate()
@@ -86,6 +84,7 @@ public class Ball : MonoBehaviour
     }
 
     // Collision with bottom => return to paddle, decrement lives
+    [ServerCallback]
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("BoundsBottom"))
@@ -97,6 +96,7 @@ public class Ball : MonoBehaviour
     }
 
     // Collision with paddle => bounce
+    [ServerCallback]
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Vector2 bounceDir = _transform.position - collision.transform.position; // Ball - Paddle to replicate Breakout's bounce

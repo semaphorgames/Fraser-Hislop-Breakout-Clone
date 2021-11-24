@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     private GUIController guiController;
     private BricksController bricksController;
 
-    public List<Ball> ballPool;
+    private List<Ball> ballPool = new List<Ball>();
 
     // Score and Lives
     private int score = 0;
@@ -39,6 +39,16 @@ public class GameController : MonoBehaviour
         guiController.SetLivesText(lives);
 
         bricksController.SpawnBricks();
+    }
+
+    public void AddBall(Ball ball)
+    {
+        ballPool.Add(ball);
+    }
+
+    public void RemoveBall(Ball ball)
+    {
+        ballPool.Remove(ball);
     }
 
     public void IncreaseScore()

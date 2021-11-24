@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Paddle : MonoBehaviour
+public class Paddle : NetworkBehaviour
 {
     // Caching
     private Transform _transform; public Transform _Transform { get { return _transform; } }
     private Rigidbody2D _rigidbody;
-    [SerializeField]
-    private Ball ball;
+    public Ball ball;
     
     private float defaultYPos; // Constant Y Position when moving paddle
     private float halfWidth;
@@ -34,20 +34,22 @@ public class Paddle : MonoBehaviour
     
     private void Update()
     {
-        LaunchBall(Input.GetKeyDown(KeyCode.Space));
+        if (!isLocalPlayer) return; // exit from update if not local player
+
+        if (Input.GetKeyDown(KeyCode.Space)) CmdLaunchBall();
     }
 
     // Launch Ball in 90 degree cone
-    private void LaunchBall(bool input)
+    [Command]
+    private void CmdLaunchBall()
     {
-        if (input)
-        {
-            ball.Launch();
-        }
+        ball.Launch();
     }
 
     private void FixedUpdate()
     {
+        if (!isLocalPlayer) return; // exit from update if not local player
+
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         Movement(mouseWorldPos);

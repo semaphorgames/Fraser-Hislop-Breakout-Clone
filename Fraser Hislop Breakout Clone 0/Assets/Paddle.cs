@@ -56,8 +56,9 @@ public class Paddle : MonoBehaviour
     // Move Paddle to position's x
     private void Movement(Vector3 position)
     {
-        position.x = Mathf.Clamp(position.x, -20 + halfWidth, 20 - halfWidth);
+        position.x = Mathf.Lerp(_transform.position.x, position.x, Time.fixedDeltaTime * xSpeed); // lerp BEFORE clamping to avoid slowing near walls
+        position.x = Mathf.Clamp(position.x, -20 + halfWidth, 20 - halfWidth); // clamp to be inside walls
 
-        _rigidbody.MovePosition(new Vector3(Mathf.Lerp(_transform.position.x, position.x, Time.fixedDeltaTime * xSpeed), defaultYPos, 0));
+        _rigidbody.MovePosition(new Vector3(position.x, defaultYPos, 0));
     }
 }

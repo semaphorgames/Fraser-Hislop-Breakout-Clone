@@ -14,9 +14,13 @@ public class GameController : MonoBehaviour
 
     public List<Ball> ballPool;
 
-    int score = 0;
+    // Score and Lives
+    private int score = 0;
     public int Score { get { return score; } }
     private int scorePerBrick = 100;
+    private int lives;
+    [SerializeField] [Range(1, 10)]
+    private int livesMax = 3;
 
     private void Awake()
     {
@@ -30,7 +34,9 @@ public class GameController : MonoBehaviour
         guiController = GUIController.Instance;
         bricksController = BricksController.Instance;
 
-        ResetScore();
+        guiController.SetScoreText(score);
+        lives = livesMax;
+        guiController.SetLivesText(lives);
 
         bricksController.SpawnBricks();
     }
@@ -47,10 +53,29 @@ public class GameController : MonoBehaviour
         guiController.SetScoreText(score);
     }
 
+    // After running out of lives, return balls and reset speed, replace bricks, and reset lives and score
+    public void DecrementLives()
+    {
+        lives--;
+        
+        if (lives <= 0)
+        {
+            foreach (Ball ball in ballPool) ball.FirstRound();
+
+            bricksController.ReplaceBricks();
+
+            lives = livesMax;
+            ResetScore();
+        }
+
+        guiController.SetLivesText(lives);
+    }
+
+    // After clearing Bricks, return balls and increase speed, and replace bricks
     public void NextRound()
     {
-        foreach (Ball ball in ballPool) ball.NextRound(); // Returns ball to paddle and increases speed
+        foreach (Ball ball in ballPool) ball.NextRound();
 
-        bricksController.ReplaceBricks(); // replace bricks
+        bricksController.ReplaceBricks();
     }
 }

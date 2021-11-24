@@ -71,6 +71,13 @@ public class Ball : MonoBehaviour
         ReturnToPaddle();
     }
 
+    public void FirstRound()
+    {
+        launchSpeedCurrent = launchSpeedStart;
+
+        ReturnToPaddle();
+    }
+
     private void ReturnToPaddle()
     {
         _rigidbody.velocity = Vector2.zero; // Reset velocity bc rb.MovePosition() maintains old velocity
@@ -84,6 +91,8 @@ public class Ball : MonoBehaviour
         if (collision.collider.CompareTag("BoundsBottom"))
         {
             ReturnToPaddle();
+
+            GameController.Instance.DecrementLives();
         }
     }
 

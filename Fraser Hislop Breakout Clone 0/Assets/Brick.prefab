@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6278384333610659950}
+  - component: {fileID: 1342027148}
   - component: {fileID: 6278384333610659947}
   - component: {fileID: 6278384333610659944}
   - component: {fileID: 6278384333610659945}
-  - component: {fileID: 1342027148}
   m_Layer: 0
   m_Name: Brick
   m_TagString: Untagged
@@ -34,6 +34,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1342027148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6278384333610659951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad377eedea085343926c421600d69d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &6278384333610659947
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -109,15 +121,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1342027148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6278384333610659951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad377eedea085343926c421600d69d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

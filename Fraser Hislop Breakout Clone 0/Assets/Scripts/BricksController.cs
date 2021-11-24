@@ -65,11 +65,15 @@ public class BricksController : NetworkBehaviour
 
                 // Spawn brick
                 GameObject brick = Instantiate(brickPrefab, new Vector3(xPos, yPos), Quaternion.identity, transform);
-                brick.transform.localScale = new Vector3(brickWidth, brickHeight, 1f);
-                brick.GetComponent<Brick>().SetMaterial(brickMaterials[row % brickMaterials.Length]); // Set Colour: mod to repeat colours for > 5 rows
-                brickPool.Add(brick.GetComponent<Brick>());
 
                 NetworkServer.Spawn(brick);
+
+                brick.transform.localScale = new Vector3(brickWidth, brickHeight, 1f);
+                // brick.GetComponent<Brick>().RpcSetMaterial(brickMaterials[row % brickMaterials.Length]); // Set Colour: mod to repeat colours for > 5 rows
+                brick.GetComponent<MeshRenderer>().material = brickMaterials[row % brickMaterials.Length];
+                brickPool.Add(brick.GetComponent<Brick>());
+
+                
             }
         }
 

@@ -6,9 +6,8 @@ using Mirror;
 public class Brick : NetworkBehaviour
 {
     public MeshRenderer meshRenderer;
-
-    [Server]
-    public void SetMaterial(Material material)
+    
+    public void RpcSetMaterial(Material material)
     {
         meshRenderer.material = material;
     }

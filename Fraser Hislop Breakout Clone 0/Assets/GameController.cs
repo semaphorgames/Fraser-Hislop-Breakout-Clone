@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
 
     // Caching
     private GUIController guiController;
+    private BricksController bricksController;
+
+    public List<Ball> ballPool;
 
     int score = 0;
     public int Score { get { return score; } }
@@ -25,8 +28,11 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         guiController = GUIController.Instance;
+        bricksController = BricksController.Instance;
 
         ResetScore();
+
+        bricksController.SpawnBricks();
     }
 
     public void IncreaseScore()
@@ -39,5 +45,12 @@ public class GameController : MonoBehaviour
     {
         score = 0;
         guiController.SetScoreText(score);
+    }
+
+    public void NextRound()
+    {
+        foreach (Ball ball in ballPool) ball.NextRound(); // Returns ball to paddle and increases speed
+
+        bricksController.ReplaceBricks(); // replace bricks
     }
 }

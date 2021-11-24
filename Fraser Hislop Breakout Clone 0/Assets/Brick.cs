@@ -18,8 +18,19 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        gameObject.SetActive(false);
+        Disable();
 
         GameController.Instance.IncreaseScore();
+        BricksController.Instance.DecrementBricksActive();
+    }
+
+    public void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Enable()
+    {
+        gameObject.SetActive(true);
     }
 }

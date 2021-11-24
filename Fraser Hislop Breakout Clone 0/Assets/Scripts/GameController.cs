@@ -37,8 +37,6 @@ public class GameController : MonoBehaviour
         guiController.SetScoreText(score);
         lives = livesMax;
         guiController.SetLivesText(lives);
-
-        bricksController.SpawnBricks();
     }
 
     public void AddBall(Ball ball)

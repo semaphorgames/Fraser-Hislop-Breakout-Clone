@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 // Spawn and Control Bricks
-public class BricksController : MonoBehaviour
+public class BricksController : NetworkBehaviour
 {
     // Singleton Instance
     private static BricksController _instance;
@@ -37,6 +38,8 @@ public class BricksController : MonoBehaviour
         else _instance = this;
     }
 
+    // Spawn Bricks on Server
+    [Server]
     public void SpawnBricks()
     {
         // Store for readability
@@ -64,20 +67,23 @@ public class BricksController : MonoBehaviour
                 GameObject brick = Instantiate(brickPrefab, new Vector3(xPos, yPos), Quaternion.identity, transform);
                 brick.transform.localScale = new Vector3(brickWidth, brickHeight, 1f);
                 brick.GetComponent<Brick>().SetMaterial(brickMaterials[row % brickMaterials.Length]); // Set Colour: mod to repeat colours for > 5 rows
-
                 brickPool.Add(brick.GetComponent<Brick>());
+
+                NetworkServer.Spawn(brick);
             }
         }
 
         bricksActive = brickPool.Count;
     }
 
+    [Server]
     public void ReplaceBricks()
     {
         foreach (Brick brick in brickPool) brick.Enable();
         bricksActive = brickPool.Count;
     }
 
+    [Server]
     public void DecrementBricksActive()
     {
         bricksActive--;

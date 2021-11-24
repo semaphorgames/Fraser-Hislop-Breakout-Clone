@@ -10,6 +10,8 @@ public class NetworkManagerBreakout : NetworkManager
     GameObject ball;
     Ball ballScript;
 
+    bool spawnedBricks = false;
+
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         // add player at correct spawn position
@@ -30,6 +32,13 @@ public class NetworkManagerBreakout : NetworkManager
         ballScript.startY = start.position.y + 1.5f;
 
         GameController.Instance.AddBall(ballScript);
+
+        if (!spawnedBricks)
+        {
+            BricksController.Instance.SpawnBricks();
+            Debug.Log("Abloobloo");
+            spawnedBricks = true;
+        }
     }
 
     public override void OnServerDisconnect(NetworkConnection conn)

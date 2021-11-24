@@ -39,8 +39,8 @@ public class BricksController : NetworkBehaviour
     }
 
     // Spawn Bricks on Server
-    [Server]
-    public void SpawnBricks()
+    [ClientRpc]
+    public void RpcSpawnBricks()
     {
         // Store for readability
         float spawnZoneTop = spawnTL.position.y;

@@ -35,7 +35,7 @@ public class NetworkManagerBreakout : NetworkManager
 
         if (!spawnedBricks)
         {
-            BricksController.Instance.SpawnBricks();
+            BricksController.Instance.RpcSpawnBricks();
             Debug.Log("Abloobloo");
             spawnedBricks = true;
         }

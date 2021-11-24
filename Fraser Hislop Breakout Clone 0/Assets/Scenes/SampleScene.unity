@@ -1354,7 +1354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1586007154}
   m_Layer: 0
-  m_Name: ----Networking----
+  m_Name: ----Networking Mirror----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

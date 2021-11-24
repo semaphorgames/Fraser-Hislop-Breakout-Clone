@@ -47,6 +47,7 @@ public class Ball : NetworkBehaviour
     {
         if (!inPlay)
         {
+            // Paddle throwing null
             _rigidbody.MovePosition(new Vector2(paddle._Transform.position.x, startY));
         }
     }
